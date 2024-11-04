@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ESNext", // 指定编译的目标 ECMAScript 版本为 ESNext
+    "useDefineForClassFields": true, // 启用在类中使用定义属性初始化器语法
+    "baseUrl": ".",
+    "module": "ESNext", // 使用 ESNext 模块系统
+    "moduleResolution": "Node", // 使用 Node.js 解析模块
+    "allowJs": true, //编译时允许有js
+    "strict": true, // 启用严格模式
+    "jsx": "preserve", // 保留 JSX 代码
+    "resolveJsonModule": true, // 启用解析 JSON 模块
+    "isolatedModules": true, // 禁用文件间的类型检查，每个文件都将被独立地检查和编译
+    "esModuleInterop": true, // 启用默认导入和命名空间导入之间的互操作性
+    "sourceMap": false, // 是否生成 sourcemap 文件
+    "lib": ["ESNext", "DOM"], // 在编译过程中包含的库文件，这里包括了 ESNext 和 DOM
+    "skipLibCheck": true, // 禁用库文件的类型检查，以提高编译速度
+    "noEmit": false, // 不生成编译输出文件
+    "paths": {
+      // 路径映射配置，用于简化导入语句
+      "@/*": ["src/*"], // 将 @/* 映射到 src/*
+      "#/*": ["type/*"]
+    },
+    "types": ["node", "vite/client", "element-plus/global"],
+    "typeRoots": ["./node_modules/@types/", "./types"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "types/*.d.ts",
+    "vite.config.ts",
+    "build/**/*.ts"
+  ], // 要包含的文件路径模式
+  "exclude": ["node_modules", "dist"] // 要排除的文件路径模式
+}

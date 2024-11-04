@@ -1,0 +1,41 @@
+.antd-message {
+  border-width: 0 !important;
+  background: #fff !important;
+  padding: 10px 13px !important;
+  box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014,
+  0 9px 28px 8px #0000000d !important;
+
+  &.el-message.is-closable .el-message__content {
+    padding-right: 17px !important;
+  }
+
+  & .el-message__content {
+    color: #000000d9 !important;
+    pointer-events: all !important;
+    background-image: initial !important;
+  }
+
+  & .el-message__icon {
+    margin-right: 8px !important;
+  }
+
+  & .el-message__closeBtn {
+    outline: none;
+    border-radius: 4px;
+    right: 9px !important;
+    transition: background-color 0.2s, color 0.2s;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.06);
+    }
+  }
+}
+
+.ant-picker {
+  & input::placeholder {
+    color: #a9abb2 !important;
+  }
+  & svg {
+    fill: #a9abb2 !important;
+  }
+}

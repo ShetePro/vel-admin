@@ -1,0 +1,85 @@
+html.dark {
+  --primary-color: #409eff;
+  --success-color: #67c23a;
+  --menu-bg-primary-color: #141414;
+  --menu-bg-color: #141414;
+  --header-bg-color: #141414;
+  --bg-color: #020409;
+}
+.dark .singleMenu{
+  --menu-bg-color: #141414;
+}
+.dark .topLeftMenu {
+  --menu-bg-color: #141414;
+  --header-bg-color: #141414;
+}
+/* 自定义 ElMessage 样式，非暗黑模式在 src/style/element-plus.css 文件进行了适配 */
+.dark .antd-message {
+  background-image: initial !important;
+  background-color: rgb(36, 37, 37) !important;
+  box-shadow: rgb(13 13 13 / 12%) 0px 3px 6px -4px,
+    rgb(13 13 13 / 8%) 0px 6px 16px 0px, rgb(13 13 13 / 5%) 0px 9px 28px 8px !important;
+
+  & .el-message__content {
+    color: #fff !important;
+    pointer-events: all !important;
+    background-image: initial !important;
+  }
+
+  & .el-message__closeBtn {
+    &:hover {
+      color: rgba(255, 255, 255, 0.85);
+      background-color: rgba(255, 255, 255, 0.12);
+    }
+  }
+}
+.dark {
+  /*.layout-aside-menu {*/
+  /*  .el-menu-item {*/
+  /*    &:hover {*/
+  /*      background-color: #363636;*/
+  /*    }*/
+  /*  }*/
+  /*  .is-opened {*/
+  /*    .el-menu {*/
+  /*      background-color: #202020 !important;*/
+  /*    }*/
+  /*  }*/
+  /*}*/
+  .ant-picker {
+    background: transparent;
+    border-color: transparent;
+    color: var(--el-input-text-color,var(--el-text-color-regular));
+    box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color))
+      inset;
+    .ant-picker-clear {
+      background: #000;
+    }
+    & input {
+      color: var(--el-input-text-color,var(--el-text-color-regular));
+    }
+    & input::placeholder {
+      color: #8e9096;
+    }
+    & svg {
+      fill: #8e9096;
+    }
+  }
+  .ant-picker-dropdown {
+    background-color: var(--el-bg-color-overlay);
+    .ant-picker-panel-container {
+      background-color: transparent;
+    }
+    .ant-picker-time-panel-cell-inner {
+      color: #fff !important;
+    }
+    .ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner {
+      background-color: var(--el-border-color-extra-light) !important;
+    }
+    .ant-btn-primary:disabled {
+      color: #fff;
+      background-color: #244778;
+      border: none;
+    }
+  }
+}

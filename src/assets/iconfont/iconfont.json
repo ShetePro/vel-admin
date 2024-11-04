@@ -1,0 +1,30 @@
+{
+  "id": "3171668",
+  "name": "canvas",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "12046370",
+      "name": "单词",
+      "font_class": "danci",
+      "unicode": "e676",
+      "unicode_decimal": 58998
+    },
+    {
+      "icon_id": "10789809",
+      "name": "选择面积边界-框选_操作_jurassic",
+      "font_class": "jurassic_choose-mjbj",
+      "unicode": "e6c8",
+      "unicode_decimal": 59080
+    },
+    {
+      "icon_id": "6978099",
+      "name": "时钟",
+      "font_class": "shizhong",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3171668 */
+  src: url('iconfont.woff2?t=1683274669907') format('woff2'),
+       url('iconfont.woff?t=1683274669907') format('woff'),
+       url('iconfont.ttf?t=1683274669907') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-danci:before {
+  content: "\e676";
+}
+
+.icon-jurassic_choose-mjbj:before {
+  content: "\e6c8";
+}
+
+.icon-shizhong:before {
+  content: "\e624";
+}
+
