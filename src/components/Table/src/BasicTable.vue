@@ -16,25 +16,14 @@
       v-bind="attrs"
       :row-key="getRowKey"
     >
-      <el-table-column
-        :prop="column.prop"
-        :label="column.label"
-        :width="column.width || ''"
+      <TableColumn
         v-for="column in columns"
+        :column="column"
         :key="column.prop"
-        :align="column.align || getOptions.align"
-        v-bind="getColumnBindProps(column)"
+        :options="getOptions"
+        :slots="$slots"
       >
-        <template #default="{ row }">
-          <slot v-if="column.slot" :name="column.prop" :row="{ ...row }" :column="column"></slot>
-          <Column
-            v-else-if="column.type !== 'text'"
-            :row="row"
-            :column="column"
-            :options="getOptions"
-          />
-        </template>
-      </el-table-column>
+      </TableColumn>
       <template #empty>
         <div class="flex justify-center items-center h-full">
           <el-empty description="暂无数据" />
@@ -56,9 +45,9 @@ import { computed, onMounted, useAttrs, unref } from 'vue'
 import { PaginationProps } from 'element-plus'
 import BasicPagination from '@/components/Pagination/BasicPagination.vue'
 import { UseTableRegisterProps } from '@/hook/useTable'
-import Column from '@/components/Table/src/Column.vue'
 import { getTableDefaultOption } from '@/components/Table/src/utils'
 import { requestDictByUrl } from '@/utils/dict'
+import TableColumn from '@/components/Table/src/TableColumn.vue'
 
 const props = defineProps<{
   register: () => UseTableRegisterProps<any>
@@ -71,10 +60,8 @@ const props = defineProps<{
     sizeChange?: () => void
   }
 }>()
-
 // 初始化参数
 const register = props.register()
-
 const getPagination = computed(
   (): PaginationProps & {
     currentChange?: () => void
@@ -100,13 +87,6 @@ const loading = computed(() => {
 })
 
 const attrs = useAttrs()
-
-// v-bind 如果有 type 属性则会影响表格树数据展示
-function getColumnBindProps(data: Recordable) {
-  const props = structuredClone(data)
-  delete props.type
-  return props
-}
 // 变更当前页回调
 function currentChange() {
   const changeFn = getPagination.value.currentChange
