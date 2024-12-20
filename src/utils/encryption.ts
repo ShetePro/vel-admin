@@ -18,7 +18,9 @@ export class AesEncryption {
     const { key, iv } = opt;
     if (key) {
       this.key = CryptoJS.enc.Latin1.parse(key);
-      this.iv = CryptoJS.enc.Latin1.parse(iv);
+    }
+    if (iv) {
+      this.iv = CryptoJS.enc.Base64.parse(iv);
     }
   }
 
