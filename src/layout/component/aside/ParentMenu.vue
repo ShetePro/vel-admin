@@ -6,9 +6,9 @@
       vertical: mode === 'vertical'
     }"
   >
-    <div class="flex flex-col items-center w-full" v-if="mode === 'vertical'">
+    <div class="flex flex-col items-center w-full pb-5" v-if="mode === 'vertical'">
       <Logo :showLabel="false" />
-      <div class="flex flex-col items-center gap-3 mt-2">
+      <div class="flex flex-col items-center gap-3 mt-2 flex-grow">
         <div
           class="root-menu-box text-white rounded-md"
           :class="{
@@ -25,6 +25,9 @@
             menu[menuProps.name]
           }}</span>
         </div>
+      </div>
+      <div class="root-menu-box text-white rounded-md is-active flex justify-center">
+        <ExpandButton class="text-white pt-2 pb-2" />
       </div>
     </div>
     <el-tabs
@@ -53,6 +56,7 @@ import { useLayoutStore } from '@/store/modules/layout'
 import { MenuDataTypeEnum } from '@/enum/settingsEnum'
 import { Icon } from '@/components/Icon'
 import { MenuDataItem } from '@/layout/component/aside/menuData'
+import ExpandButton from '@/layout/component/ExpandButton.vue'
 const { mode } = withDefaults(
   defineProps<{
     mode: 'horizontal' | 'vertical'

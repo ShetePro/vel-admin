@@ -6,16 +6,8 @@
         'dark-bg': showTopMenu
       }"
     >
-      <div>
-        <Icon
-          v-if="
-          layoutStore.layoutWidth > 600 && getSystemConfig.layoutMode !== LayoutModeTypeEnum.topMenu
-        "
-          class="mr-3 cursor-pointer text-gray-600"
-          :icon="getMenuExpand ? 'ri:expand-left-fill' : 'ri:expand-right-fill'"
-          size="20"
-          @click="toggleMenuExpand"
-        />
+      <div class="ml-2 mr-3">
+       <ExpandButton />
       </div>
       <Menu
         :hide-logo="getSystemConfig.layoutMode === LayoutModeTypeEnum.topLeftMenu"
@@ -38,21 +30,17 @@
 
 <script setup lang="ts">
 import Tabs from '@/layout/component/header/navBar/Tabs.vue'
-import { Icon } from '@/components/Icon'
 import User from '@/layout/component/header/components/User.vue'
 // import Notify from "@/layout/component/header/components/Notify.vue";
 import WebSetting from '@/layout/component/header/components/WebSetting.vue'
 import { useSettingStore } from '@/store/modules/settings'
 import { computed, toRef } from 'vue'
-import { useLayoutStore } from '@/store/modules/layout'
 import { LayoutModeTypeEnum } from '@/enum/settingsEnum'
 import ParentMenu from '@/layout/component/aside/ParentMenu.vue'
 import Menu from '@/layout/component/aside/Menu.vue'
+import ExpandButton from "@/layout/component/ExpandButton.vue";
 
 const { getSystemConfig } = useSettingStore()
-const layoutStore = useLayoutStore()
-const { toggleMenuExpand } = useSettingStore()
-const getMenuExpand = toRef(useSettingStore(), 'getMenuExpand')
 const showTopMenu = computed(() => {
   return [LayoutModeTypeEnum.topMenu].includes(getSystemConfig.layoutMode)
 })

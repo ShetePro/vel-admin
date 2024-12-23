@@ -19,7 +19,8 @@ export const useLayoutStore = defineStore({
     layoutWidth: 0,
     layoutHeight: 0,
     cachePages: new Set([]),
-    passwordDialog: ref()
+    passwordDialog: ref(),
+    showExpand: true
   }),
   getters: {
     getNavBars(state): Map<string, TabsItemProps> {

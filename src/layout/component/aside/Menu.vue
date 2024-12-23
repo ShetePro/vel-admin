@@ -51,7 +51,7 @@ import { useLayoutStore } from '@/store/modules/layout'
 import Logo from '@/layout/component/aside/Logo.vue'
 
 const router = useRouter()
-const props = withDefaults(
+withDefaults(
   defineProps<{
     mode?: 'horizontal' | 'vertical'
     hideLogo?: boolean
@@ -72,6 +72,24 @@ const rootMenuId = ref<string | undefined>()
 const getMenuCollapse = computed(() => {
   return [LayoutModeTypeEnum.twoMenu, LayoutModeTypeEnum.topMenu].includes(getSystemConfig.layoutMode) ? false : !getMenuExpand.value
 })
+
+const menuData = computed(() => {
+  let menus: MenuDataItem[] = []
+  if (isSingleMenu.value) {
+    menus = layoutStore.getMenuList || []
+  } else if (rootMenuId.value) {
+    menus = layoutStore.getMenuList?.find((menu) => menu.id === rootMenuId.value)?.children || []
+  }
+  console.log(menus,'menus')
+  return clearBottomMenu(menus)
+})
+
+const asideWidth = computed(() => {
+  return getMenuExpand.value ? getSystemConfig.menuWidth + 'px' : '5rem'
+})
+
+
+// 监听路由变化
 watch(
   () => router.currentRoute.value,
   (current) => {
@@ -82,23 +100,14 @@ watch(
     immediate: true
   }
 )
+
 const isSingleMenu = computed(() => {
   return [LayoutModeTypeEnum.singleMenu, LayoutModeTypeEnum.topMenu].includes(
     getSystemConfig.layoutMode
   )
 })
-const menuData = computed(() => {
-  let menus: MenuDataItem[] = []
-  if (isSingleMenu.value) {
-    menus = layoutStore.getMenuList || []
-  } else if (rootMenuId.value) {
-    menus = layoutStore.getMenuList?.find((menu) => menu.id === rootMenuId.value)?.children || []
-  }
-  return clearBottomMenu(menus)
-})
-const asideWidth = computed(() => {
-  return getMenuExpand.value ? getSystemConfig.menuWidth + 'px' : '5rem'
-})
+
+
 const isShowMenu = computed(() => {
   const isHideMenu =
     !getMenuExpand.value && LayoutModeTypeEnum.twoMenu === getSystemConfig.layoutMode
@@ -117,6 +126,10 @@ function clearBottomMenu(menu: MenuDataItem[]) {
   return list
 }
 const loading = ref<boolean>(false)
+
+watch(() => menuData.value.length, (value) => {
+  layoutStore.showExpand = !!value
+})
 </script>
 
 <style lang="scss" scoped>
