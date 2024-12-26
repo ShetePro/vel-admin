@@ -1,11 +1,11 @@
-import { FormItemRule } from 'element-plus/es/components/form/src/types'
+import { FormItemRule } from 'element-plus'
 
 export type BasicFormOption = {
-  labelWidth: string | number
-  labelPosition: 'top' | 'right' | 'left'
-  labelSuffix: string
-  disabled: boolean
-  inline: boolean
+  labelWidth?: string | number
+  labelPosition?: 'top' | 'right' | 'left'
+  labelSuffix?: string
+  disabled?: boolean
+  inline?: boolean
   column: BasicFormColumnProps[]
 }
 export type BasicFormColumnProps = {
@@ -13,7 +13,6 @@ export type BasicFormColumnProps = {
   prop: string
   labelWidth?: string | number
   type?: 'text' | 'number' | 'select' | 'date' | 'switch' | 'radio' | 'upload'
-  // eslint-disable-next-line no-unused-vars
   formatter?: (value: Recordable) => string
   placeholder?: string
   dataType?: BasicFormDataType
@@ -44,7 +43,8 @@ export type BasicFormDataType =
   | 'symbol'
   | 'undefined'
   | 'object'
-  | 'function' | 'array'
+  | 'function'
+  | 'array'
 
 // 表单组件事件
 export type BasicFormMethods = {

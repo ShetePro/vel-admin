@@ -8,14 +8,15 @@ module.exports = {
   root: true,
   // 声明全局变量 防止在单文件组件内无法找到
   globals: {
-    "Recordable": true,
-    "EventListener": true,
-    "KeyString": true,
-    "MainDialogStatus": true,
-    "KeyRecordable": true,
-    "defineModel": true,
+    Recordable: true,
+    EventListener: true,
+    KeyString: true,
+    MainDialogStatus: true,
+    MainDialogBaseFn: true,
+    KeyRecordable: true,
+    VoidFunction: true
   },
-  parser: "vue-eslint-parser",
+  parser: 'vue-eslint-parser',
   extends: [
     'plugin:vue/vue3-essential',
     'eslint:recommended',
@@ -23,13 +24,13 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest',
-    parser: "@typescript-eslint/parser",
+    parser: '@typescript-eslint/parser'
   },
   rules: {
     // 使用 2 个空格缩进
-    "indent": ["error", 2],
+    indent: ['error', 2],
     // 忽略文件名多个字符串
-    "vue/multi-word-component-names": "off",
-    "no-unused-vars": "off"
-  },
+    'vue/multi-word-component-names': 'off',
+    'no-unused-vars': 'off'
+  }
 }
