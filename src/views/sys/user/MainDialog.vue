@@ -30,7 +30,7 @@ import { BasicForm } from '@/components/Form'
 import { BasicDialog } from '@/components/Dialog'
 import { BasicDialogMethods } from '@/components/Dialog/src/types'
 import { useMessage } from '@/hook/useMessage'
-import { BasicFormMethods } from '@/components/Form/src/types'
+import {BasicFormMethods, BasicFormOption} from '@/components/Form/src/types'
 import { validateMobile } from '@/components/Form/src/rules'
 import { addUserApi, updateUserApi } from '@/api/sys/user'
 import InputTree from '@/components/InputTree/InputTree.vue'
@@ -49,7 +49,7 @@ const titles = {
 let status = ref<MainDialogStatus>('create')
 const deptTreeData = ref([])
 const formRef = ref<BasicFormMethods>()
-const formOption = computed(() => {
+const formOption = computed<BasicFormOption>(() => {
   return {
     labelWidth: '80px',
     disabled: status.value === 'detail',

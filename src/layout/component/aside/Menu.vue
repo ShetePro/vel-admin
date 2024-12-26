@@ -80,7 +80,6 @@ const menuData = computed(() => {
   } else if (rootMenuId.value) {
     menus = layoutStore.getMenuList?.find((menu) => menu.id === rootMenuId.value)?.children || []
   }
-  console.log(menus,'menus')
   return clearBottomMenu(menus)
 })
 

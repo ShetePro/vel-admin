@@ -14,6 +14,49 @@ export const menuData: MenuDataItem[] = [
     parentId: -1
   },
   {
+    id: '11',
+    menuName: '组件',
+    menuPath: 'Layout',
+    icon: 'lets-icons:setting-line',
+    type: 0,
+    keepAlive: false,
+    transition: '',
+    parentId: -1,
+    children: [
+      {
+        id: '13',
+        menuName: '表单',
+        menuPath: '/component/form/FormView',
+        icon: 'icon-park:setting-two',
+        type: 0,
+        keepAlive: false,
+        transition: '',
+        children: [],
+        parentId: 2
+      },
+      {
+        id: '14',
+        menuName: '表格',
+        menuPath: '/component/table/TableView',
+        icon: 'icon-park:setting-two',
+        type: 0,
+        keepAlive: false,
+        transition: '',
+        children: []
+      },
+      {
+        id: '15',
+        menuName: '弹窗',
+        menuPath: '/component/dialog/DialogView',
+        icon: 'icon-park:setting-two',
+        type: 0,
+        keepAlive: false,
+        transition: '',
+        children: []
+      }
+    ]
+  },
+  {
     id: '2',
     menuName: '系统管理',
     menuPath: 'Layout',
