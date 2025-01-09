@@ -2,6 +2,8 @@ import { BasicTableOptions } from '@/components/Table/src/types'
 import { onMounted, reactive, Ref, ref, ShallowRef, shallowRef, unref, watch } from 'vue'
 import { PaginationProps } from 'element-plus'
 import { request } from '@/utils/http'
+import type { AxiosRequestConfig } from 'axios'
+import type { RequestOptions } from '@/utils/http/types'
 type TableSearch = {
   data: Recordable
   params: Recordable
@@ -9,6 +11,8 @@ type TableSearch = {
 type UseTableConfig = {
   api?: string | Ref<string>
   apiMethod?: 'POST' | 'GET' | string
+  apiConfig?: AxiosRequestConfig
+  apiOptions?: RequestOptions
   apiHandler?: (data: Recordable[]) => void
   options: BasicTableOptions | Ref<BasicTableOptions>
   pagination?: PaginationProps
@@ -34,7 +38,7 @@ interface UseTableReturn<T> {
   resetPagination: () => void
 }
 export function useTable<T extends object>(config: UseTableConfig): UseTableReturn<T> {
-  const { api, apiHandler, apiMethod = 'POST', searchTransform } = config
+  const { api, apiHandler, apiOptions, apiConfig, apiMethod = 'POST', searchTransform } = config
   const searchData = ref({})
   const searchQuery = ref({})
   // 使用shallowRef 不对数据进行深度监听 优化性能
@@ -63,16 +67,24 @@ export function useTable<T extends object>(config: UseTableConfig): UseTableRetu
         pageSize: pagination.pageSize,
         ...data
       },
-      params: query
+      params: {
+        ...query,
+        pageIndex: pagination.currentPage,
+        pageSize: pagination.pageSize
+      }
     }
     // 如果有处理函数 则使用处理后的请求数据
     let requestSearch = searchTransform ? searchTransform(searchBody) : searchBody
     try {
-      const { data: dataBody } = await request.request({
-        method: apiMethod,
-        url: unref(api),
-        ...requestSearch
-      })
+      const { data: dataBody } = await request.request(
+        {
+          method: apiMethod,
+          url: unref(api),
+          ...apiConfig,
+          ...requestSearch
+        },
+        apiOptions
+      )
       const apiData = apiHandler ? apiHandler(dataBody) : dataBody
       setData(apiData.rows)
       pagination.total = apiData.total
