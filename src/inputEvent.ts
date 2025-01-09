@@ -3,10 +3,10 @@ import { useMessage } from '@/hook/useMessage'
 
 export function inputLengthLimit() {
   const { message } = useMessage()
-  const inputType: KeyRecordable<{ max: number; msg: string; maxProp: string }> = {
-    text: { max: 255, msg: '输入框最多输入255个字符', maxProp: 'maxlength' },
-    textarea: { max: 255, msg: '文本框最多输入255个字符', maxProp: 'maxlength' },
-    number: { max: 9999999999999, msg: '数字输入框不能大于9999999999999', maxProp: 'max' }
+  const inputType: KeyRecordable<{ max: number; msg: (length: number) => string; maxProp: string }> = {
+    text: { max: 255, msg: (length) => `输入框最多输入${length}个字符`, maxProp: 'maxlength' },
+    textarea: { max: 255, msg: (length) => `文本框最多输入${length}个字符`, maxProp: 'maxlength' },
+    number: { max: 9999999999999, msg: (length) => `数字输入框不能大于${length}`, maxProp: 'max' }
   }
   document.addEventListener('input', function (e: Event) {
     const target: HTMLInputElement = e.target as HTMLInputElement
@@ -17,9 +17,10 @@ export function inputLengthLimit() {
       if (target.getAttribute(inputData.maxProp) === null) {
         target.setAttribute(inputData.maxProp, inputData.max.toString()) // 限制最长输入100个字符
       }
+      const maxLength = (target.getAttribute(inputData.maxProp) || inputData.max)
       // 如果超出则提示
-      if (target.value.length >= inputData.max) {
-        message(inputData.msg, { type: 'warning' })
+      if (target.value.length >= maxLength) {
+        message(inputData.msg(maxLength), { type: 'warning' })
       }
     }
   })
