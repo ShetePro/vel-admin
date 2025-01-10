@@ -27,7 +27,7 @@
         </div>
       </div>
       <ExpandButton
-        class="root-menu-box rounded-md is-active flex justify-center"
+        class="root-menu-box rounded-md h-[40px] is-active flex justify-center"
         icon-class="text-white"
       />
     </div>
@@ -107,7 +107,6 @@ function changeRootMenu(menu: MenuDataItem) {
     align-items: center;
     justify-content: center;
     width: 40px;
-    height: 40px;
     font-size: 0.8rem;
     cursor: pointer;
     padding: 2px 2px 3px 2px;
