@@ -4,6 +4,7 @@ import { PaginationProps } from 'element-plus'
 import { request } from '@/utils/http'
 import type { AxiosRequestConfig } from 'axios'
 import type { RequestOptions } from '@/utils/http/types'
+import { isFunction } from '@/utils/is'
 type TableSearch = {
   data: Recordable
   params: Recordable
@@ -11,11 +12,11 @@ type TableSearch = {
 type UseTableConfig = {
   api?: string | Ref<string>
   apiMethod?: 'POST' | 'GET' | string
-  apiConfig?: AxiosRequestConfig
+  apiConfig?: AxiosRequestConfig | (() => AxiosRequestConfig)
   apiOptions?: RequestOptions
   apiHandler?: (data: Recordable[]) => void
   options: BasicTableOptions | Ref<BasicTableOptions>
-  pagination?: PaginationProps
+  page?: Partial<PaginationProps>
   searchTransform?: (data: TableSearch) => TableSearch
 }
 export type UseTableRegisterProps<T> = {
@@ -38,7 +39,15 @@ interface UseTableReturn<T> {
   resetPagination: () => void
 }
 export function useTable<T extends object>(config: UseTableConfig): UseTableReturn<T> {
-  const { api, apiHandler, apiOptions, apiConfig, apiMethod = 'POST', searchTransform } = config
+  const {
+    api,
+    apiHandler,
+    apiOptions,
+    apiConfig,
+    apiMethod = 'POST',
+    searchTransform,
+    page
+  } = config
   const searchData = ref({})
   const searchQuery = ref({})
   // 使用shallowRef 不对数据进行深度监听 优化性能
@@ -50,14 +59,19 @@ export function useTable<T extends object>(config: UseTableConfig): UseTableRetu
       api && getList()
     }
   )
-  let pagination = reactive({
-    currentPage: 1,
-    pageSize: 10,
-    total: 0,
-    pageSizes: [10, 20, 30, 40, 50],
-    sizeChange: getList,
-    currentChange: getList
-  })
+  let pagination = reactive(
+    Object.assign(
+      {
+        currentPage: 1,
+        pageSize: 10,
+        total: 0,
+        pageSizes: [10, 20, 30, 40, 50],
+        sizeChange: getList,
+        currentChange: getList
+      },
+      page
+    )
+  )
   const loading = ref<boolean>(false)
   const apiRequest = async (data: Recordable = {}, query: Recordable = {}) => {
     loading.value = true
@@ -76,11 +90,12 @@ export function useTable<T extends object>(config: UseTableConfig): UseTableRetu
     // 如果有处理函数 则使用处理后的请求数据
     let requestSearch = searchTransform ? searchTransform(searchBody) : searchBody
     try {
+      const config = isFunction(apiConfig) ? apiConfig() : apiConfig
       const { data: dataBody } = await request.request(
         {
           method: apiMethod,
           url: unref(api),
-          ...apiConfig,
+          ...config,
           ...requestSearch
         },
         apiOptions
@@ -102,7 +117,7 @@ export function useTable<T extends object>(config: UseTableConfig): UseTableRetu
   })
   // 注入表格
   const register = () => {
-    pagination = Object.assign(pagination, config.pagination)
+    pagination = Object.assign(pagination, config.page)
     return {
       options: config.options,
       data: tableData,
@@ -113,7 +128,7 @@ export function useTable<T extends object>(config: UseTableConfig): UseTableRetu
 
   // 获取表格数据
   const getData = () => {
-    return unref(tableData.value)
+    return [...unref(tableData.value)]
   }
 
   const setData = (data: T[]) => {
