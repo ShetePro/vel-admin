@@ -26,9 +26,10 @@
           }}</span>
         </div>
       </div>
-      <div class="root-menu-box text-white rounded-md is-active flex justify-center">
-        <ExpandButton class="text-white pt-2 pb-2" />
-      </div>
+      <ExpandButton
+        class="root-menu-box rounded-md is-active flex justify-center"
+        icon-class="text-white"
+      />
     </div>
     <el-tabs
       v-model="getActiveRootId"
@@ -59,7 +60,7 @@ import { MenuDataItem } from '@/layout/component/aside/menuData'
 import ExpandButton from '@/layout/component/ExpandButton.vue'
 const { mode } = withDefaults(
   defineProps<{
-    mode: 'horizontal' | 'vertical'
+    mode?: 'horizontal' | 'vertical'
   }>(),
   {
     mode: 'vertical'
@@ -106,6 +107,7 @@ function changeRootMenu(menu: MenuDataItem) {
     align-items: center;
     justify-content: center;
     width: 40px;
+    height: 40px;
     font-size: 0.8rem;
     cursor: pointer;
     padding: 2px 2px 3px 2px;

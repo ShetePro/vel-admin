@@ -128,6 +128,8 @@ const loading = ref<boolean>(false)
 
 watch(() => menuData.value.length, (value) => {
   layoutStore.showExpand = !!value
+}, {
+  immediate: true
 })
 </script>
 
