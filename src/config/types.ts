@@ -13,6 +13,7 @@ export interface SystemConfig {
   menuWidth: string | number;
   menuProps: MenuPropsType
   colorMode: boolean;
+  primaryColor: string;
   grayMode: boolean;
   weaknessMode: boolean;
   showNavs: boolean;

@@ -32,6 +32,7 @@ const systemSettings: SystemConfig = {
     audit: 'audit'
   },
   colorMode: false,
+  primaryColor: '#409eff',
   grayMode: false, // 暗黑模式
   weaknessMode: false, // 色弱模式
   showNavs: true, // 隐藏标签页

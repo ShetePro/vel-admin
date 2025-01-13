@@ -1,11 +1,10 @@
 <template>
-  <div>
-    form view
-  </div>
+    <el-color-picker v-model="modelValue" />
 </template>
 
 <script setup lang="ts">
 
+const modelValue = defineModel()
 </script>
 
 <style scoped>

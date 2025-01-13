@@ -23,6 +23,16 @@
           <el-divider>界面显示</el-divider>
           <ul class="view-settings text-zinc-950">
             <li>
+              <span class="dark:text-white">主题颜色</span>
+              <color-select
+                v-model="getSystemConfig.primaryColor"
+                inline-prompt
+                @change="colorChange"
+                active-text="开"
+                inactive-text="关"
+              />
+            </li>
+            <li>
               <span class="dark:text-white">灰色模式</span>
               <el-switch
                 v-model="getSystemConfig.grayMode"
@@ -107,8 +117,9 @@ import TwoMenuMode from '@/layout/component/header/components/TwoMenuMode.vue'
 import TopMenuMode from '@/layout/component/header/components/TopMenuMode.vue'
 import SingleMenuMode from '@/layout/component/header/components/SingleMenuMode.vue'
 import TopLeftMenuMode from '@/layout/component/header/components/TopLeftMenuMode.vue'
+import ColorSelect from '@/components/Select/ColorSelect.vue'
 const settings = useSettingStore()
-const { greyChange, weaknessChange } = useSetting()
+const { greyChange, weaknessChange, colorChange } = useSetting()
 const userStore = useUserStore()
 const { getSystemConfig } = storeToRefs(settings)
 const { setSetting } = settings
@@ -123,6 +134,8 @@ onMounted(() => {
   greyChange(settings.getSystemConfig.grayMode)
   // 初始化色弱模式
   weaknessChange(settings.getSystemConfig.weaknessMode)
+  // 初始化主题色
+  colorChange(settings.getSystemConfig.primaryColor)
 })
 function resetStorage() {
   localStorage.clear()

@@ -5,6 +5,7 @@ type UseSettingReturnType = {
   greyChange: (value: boolean) => void;
   weaknessChange: (value: boolean) => void;
   changeLayoutMode: (mode: LayoutModeTypeEnum) => void;
+  colorChange: (color: string) => void;
 }
 export function useSetting(): UseSettingReturnType {
   const { setSetting } = useSettingStore()
@@ -28,10 +29,18 @@ export function useSetting(): UseSettingReturnType {
       layoutMode: mode,
     })
   }
+  const colorChange = (color: string) => {
+    const html = document.querySelector('html')
+    if (html?.style) {
+      html.style.setProperty('--el-color-primary', color)
+    }
+    setSetting();
+  }
   return {
     greyChange,
     weaknessChange,
-    changeLayoutMode
+    changeLayoutMode,
+    colorChange
   }
 }
 function toggleClass(flag: boolean, clsName: string, target?: HTMLElement | null) {
