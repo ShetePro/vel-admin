@@ -25,13 +25,24 @@ export const menuData: MenuDataItem[] = [
     children: [
       {
         id: '13',
-        menuName: '表单',
+        menuName: '二级菜单',
         menuPath: '/component/form/FormView',
         icon: 'lets-icons:form-duotone',
         type: 0,
         keepAlive: false,
         transition: '',
-        children: [],
+        children: [
+          {
+            id: '411',
+            menuName: '三级菜单',
+            menuPath: '/sys/role/index',
+            icon: 'icon-park-outline:permissions',
+            type: 0,
+            keepAlive: false,
+            transition: '',
+            children: []
+          },
+        ],
         parentId: 2
       },
       {

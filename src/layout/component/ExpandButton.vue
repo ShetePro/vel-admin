@@ -28,7 +28,6 @@ const { toggleMenuExpand } = settingStore
 defineProps<{
   iconClass?: string
 }>()
-console.log(layoutStore.layoutWidth, getSystemConfig.layoutMode, layoutStore.showExpand)
 </script>
 
 <style scoped></style>
